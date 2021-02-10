@@ -54,7 +54,8 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        spriteRenderer.flipX = (horizontalInput < 0);
+        if(Mathf.Abs(horizontalInput) > Mathf.Epsilon)
+            spriteRenderer.flipX = (horizontalInput < 0);
 
         //float verticalInput = Input.GetAxis("Vertical");
         Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
