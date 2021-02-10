@@ -13,20 +13,27 @@ public class EnemyController : MonoBehaviour
     [Header("Settings")]
     public LayerMask EnvLayerMask;
 
-    private Rigidbody2D Body;
-    private CapsuleCollider2D Coll2D;
+    public EnemyProjectile ProjectileRef;
     public float MaxSpeed;
     public float FallSpeed;
+    public float ShootInterval;
+
+    private Rigidbody2D Body;
+    private CapsuleCollider2D Coll2D;
 
     private int Direction = 1;
 
     [SerializeField]
     bool Grounded = false;
 
+    float ShootTimer = 0;
+
     void Start()
     {
         Body = GetComponent<Rigidbody2D>();
         Coll2D = GetComponent<CapsuleCollider2D>();
+
+        ShootTimer = ShootInterval;
     }
 
     private void FixedUpdate()
@@ -83,6 +90,18 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
+
+        ShootTimer -= Time.deltaTime;
+
+        /*if(ShootTimer < 0f)
+        {
+            ShootTimer = ShootInterval;
+
+            if(!Physics2D.Raycast(transform.position, ))
+            {
+
+            }
+        }*/
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

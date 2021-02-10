@@ -67,18 +67,21 @@ public class GameManager : MonoBehaviour
         if (!IsPlaying)
             return;
 
-        EnemySpawnTimer -= Time.deltaTime;
-
-        if(EnemySpawnTimer <= 0)
+        if(EnemySpawnTimer > 0)
         {
-            int spawnIndex = Random.Range(0, EnemySpawnPoints.Count);
+            EnemySpawnTimer -= Time.deltaTime;
 
-            EnemyController newEnemy = Instantiate(EnemyRef, EnemySpawnPoints[spawnIndex].position, Quaternion.identity, transform);
+            if (EnemySpawnTimer <= 0)
+            {
+                int spawnIndex = Random.Range(0, EnemySpawnPoints.Count);
 
-            Enemies.Add(newEnemy);
+                EnemyController newEnemy = Instantiate(EnemyRef, EnemySpawnPoints[spawnIndex].position, Quaternion.identity, transform);
 
-            if (Enemies.Count < MaxEnemiesCount)
-                EnemySpawnTimer = Settings.EnemySpawnInterval;
+                Enemies.Add(newEnemy);
+
+                if (Enemies.Count < MaxEnemiesCount)
+                    EnemySpawnTimer = Settings.EnemySpawnInterval;
+            }
         }
     }
 }
