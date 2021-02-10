@@ -56,6 +56,8 @@ MonoBehaviour:
   MaxSpeed: 4
   FallSpeed: 30
   Grounded: 0
+  projectile: {fileID: 8619156979281722204, guid: 40933be9598676b469b682f14d657035,
+    type: 3}
 --- !u!212 &6216191262933233085
 SpriteRenderer:
   m_ObjectHideFlags: 0

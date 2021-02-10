@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    public GameObject projectile;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,10 +44,6 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    private void FixedUpdate()
-    {
-
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -55,10 +53,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         float horizontalInput = Input.GetAxis("Horizontal");
 
         if(Mathf.Abs(horizontalInput) > Mathf.Epsilon)
             spriteRenderer.flipX = (horizontalInput < 0);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject pro = Instantiate(projectile, transform.position, Quaternion.identity);
+            if (spriteRenderer.flipX)
+                pro.GetComponent<Projectile>().Direction = new Vector3(-1, 0, 0);
+            else
+                pro.GetComponent<Projectile>().Direction = new Vector3(1, 0, 0);
+
+        }
 
         //float verticalInput = Input.GetAxis("Vertical");
         Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
