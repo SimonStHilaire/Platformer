@@ -63,9 +63,13 @@ public class PlayerController : MonoBehaviour
     {
         bool isGrounded = Physics2D.Raycast(transform.position, Vector2.down, Coll2D.size.y + Coll2D.offset.y + 0.1f, EnvLayerMask);
 
-        if (Jumping && !Grounded && isGrounded)
+        if (isGrounded)
         {
-            Anim.SetTrigger(LAND_KEY);
+            if (Jumping)
+            {
+                Anim.SetTrigger(LAND_KEY);
+            }
+
             Jumping = false;
         }
 
