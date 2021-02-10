@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
-        if (Input.GetButton("Jump") & Grounded)
+        if (Input.GetButtonDown("Jump") & Grounded)
         {
             Body.AddForce(new Vector2(0,jumpForce));
             Anim.SetTrigger(JUMP_KEY);
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         bool isGrounded = Physics2D.Raycast(transform.position, Vector2.down, Coll2D.size.y + Coll2D.offset.y + 0.1f, EnvLayerMask);
 
-        if (isGrounded)
+        if (isGrounded && !Grounded)
         {
             if (Jumping)
             {
