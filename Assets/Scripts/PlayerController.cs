@@ -69,6 +69,10 @@ public class PlayerController : MonoBehaviour
 
         Body.velocity = new Vector2(Mathf.Max(Mathf.Min(Body.velocity.x, MaxSpeed), -MaxSpeed), Body.velocity.y);
 
+        Anim.SetBool("run", Body.velocity.magnitude > 1f);
+
+        //print(Body.velocity.magnitude);
+
         bool isGrounded = Physics2D.Raycast(transform.position, Vector2.down, Coll2D.size.y + Coll2D.offset.y + 0.1f, EnvLayerMask);
 
         if (isGrounded && !Grounded)
