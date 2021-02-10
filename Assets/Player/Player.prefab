@@ -47,11 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dcd67ebdecf6c428ffefe04fc12e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 150
+  jumpForce: 400
   moveSpeed: 50
   EnvLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  Anim: {fileID: 0}
   MaxSpeed: 4
   FallSpeed: 30
   Grounded: 0

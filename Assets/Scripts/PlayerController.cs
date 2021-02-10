@@ -39,17 +39,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
-        if (Input.GetButtonDown("Jump") & Grounded)
-        {
-            Body.AddForce(new Vector2(0,jumpForce));
-            Anim.SetTrigger(JUMP_KEY);
-            Jumping = true;
-        }
-
-        Body.velocity = new Vector2(Mathf.Max(Mathf.Min(Body.velocity.x, MaxSpeed), -MaxSpeed), Body.velocity.y);
 
     }
 
@@ -61,6 +50,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        //float verticalInput = Input.GetAxis("Vertical");
+        Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
+
+        if (Input.GetButtonDown("Jump") && Grounded)
+        {
+            Body.AddForce(new Vector2(0, jumpForce));
+            Anim.SetTrigger(JUMP_KEY);
+            Jumping = true;
+        }
+
+        Body.velocity = new Vector2(Mathf.Max(Mathf.Min(Body.velocity.x, MaxSpeed), -MaxSpeed), Body.velocity.y);
+
         bool isGrounded = Physics2D.Raycast(transform.position, Vector2.down, Coll2D.size.y + Coll2D.offset.y + 0.1f, EnvLayerMask);
 
         if (isGrounded && !Grounded)
