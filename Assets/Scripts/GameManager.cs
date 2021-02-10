@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public List<Transform> EnemySpawnPoints;
     public Transform PlayerSpawnPosition;
 
+    public int MaxEnemiesCount;
+
     PlayerController Player = null;
     List<EnemyController> Enemies = new List<EnemyController>();
 
@@ -69,13 +71,14 @@ public class GameManager : MonoBehaviour
 
         if(EnemySpawnTimer <= 0)
         {
-            EnemySpawnTimer = Settings.EnemySpawnInterval;
-
             int spawnIndex = Random.Range(0, EnemySpawnPoints.Count);
 
             EnemyController newEnemy = Instantiate(EnemyRef, EnemySpawnPoints[spawnIndex].position, Quaternion.identity, transform);
 
             Enemies.Add(newEnemy);
+
+            if (Enemies.Count < MaxEnemiesCount)
+                EnemySpawnTimer = Settings.EnemySpawnInterval;
         }
     }
 }
