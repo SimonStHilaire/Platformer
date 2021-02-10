@@ -6,5 +6,6 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
     public float PlayerProjectilesSpeed;
+    public float EnemySpawnInterval;
     public bool DebugDraw;
 }

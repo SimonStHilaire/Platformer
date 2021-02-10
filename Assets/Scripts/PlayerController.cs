@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public float MaxSpeed;
     public float FallSpeed;
 
+    public Action OnEnemyCollison;
+
     const string JUMP_KEY = "jump";
     const string LAND_KEY = "land";
 
@@ -45,12 +47,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public Action OnEnnemiCollison;
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<EnemyController>())
-            OnEnnemiCollison?.Invoke();
+            OnEnemyCollison?.Invoke();
     }
 
     void Update()

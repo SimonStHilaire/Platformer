@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 15
-  CanDrop: 0
+  CanDrop: 1
   EnvLayerMask:
     serializedVersion: 2
     m_Bits: 256
