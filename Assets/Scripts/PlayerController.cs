@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
         Body.velocity = new Vector2(Mathf.Max(Mathf.Min(Body.velocity.x, MaxSpeed), -MaxSpeed), Body.velocity.y);
 
-        Anim.SetBool("run", Body.velocity.magnitude > 1f);
+        Anim.SetFloat("speed", Mathf.Abs(Body.velocity.x));
 
         //print(Body.velocity.magnitude);
 
