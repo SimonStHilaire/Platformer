@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     bool Grounded = false;
 
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         Body = GetComponent<Rigidbody2D>();
         Coll2D = GetComponent<CapsuleCollider2D>();
         Anim = GetComponent<Animator>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -51,6 +53,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
+
+        spriteRenderer.flipX = (horizontalInput < 0);
+
         //float verticalInput = Input.GetAxis("Vertical");
         Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
 
