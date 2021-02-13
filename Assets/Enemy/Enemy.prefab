@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5912411875778104008}
   - component: {fileID: 5912411875778104055}
   - component: {fileID: 4277362709531683768}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,8 +51,13 @@ MonoBehaviour:
   EnvLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  PlayerProjectileLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  ProjectileRef: {fileID: 0}
   MaxSpeed: 2
   FallSpeed: 15
+  ShootInterval: 0
   Grounded: 0
 --- !u!212 &5912411875778104008
 SpriteRenderer:

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6216191262933233026}
   - component: {fileID: 3260464002114679746}
   - component: {fileID: 1198284148111252555}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 400
   moveSpeed: 50
+  slowDownSpeed: 5
   EnvLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -124,7 +125,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 623c839be2f85df4bbdac6527cacd017, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

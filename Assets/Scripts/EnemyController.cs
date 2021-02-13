@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("Settings")]
     public LayerMask EnvLayerMask;
+    public LayerMask PlayerProjectileLayerMask;
 
     public EnemyProjectile ProjectileRef;
     public float MaxSpeed;
@@ -104,9 +105,9 @@ public class EnemyController : MonoBehaviour
         }*/
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.gameObject.GetComponent<PlayerProjectile>())
-        //    Destroy(gameObject);
+        if (collision.gameObject.layer == (int)Mathf.Log(PlayerProjectileLayerMask.value, 2))
+            Destroy(gameObject);
     }
 }

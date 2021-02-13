@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [Header("Gameplay")]
     public float jumpForce;
     public float moveSpeed;
+    public float slowDownSpeed;
 
     [Header("Settings")]
     public LayerMask EnvLayerMask;
@@ -56,8 +57,16 @@ public class PlayerController : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        if(Mathf.Abs(horizontalInput) > Mathf.Epsilon)
+        if (Mathf.Abs(horizontalInput) > Mathf.Epsilon)
+        {
             spriteRenderer.flipX = (horizontalInput < 0);
+            Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
+        }
+        else if(Grounded)
+        {
+            float xVelocity = Mathf.Lerp(Body.velocity.x, 0f, slowDownSpeed * Time.deltaTime);
+            Body.velocity = new Vector2(xVelocity, Body.velocity.y);
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -70,7 +79,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //float verticalInput = Input.GetAxis("Vertical");
-        Body.AddForce(new Vector2(horizontalInput, 0) * moveSpeed);
+        
 
         if (Input.GetButtonDown("Jump") && Grounded)
         {
