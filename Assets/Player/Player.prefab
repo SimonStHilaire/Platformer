@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6216191262933233026}
   - component: {fileID: 3260464002114679746}
   - component: {fileID: 1198284148111252555}
+  - component: {fileID: 5194659070681647680}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -56,6 +57,7 @@ MonoBehaviour:
   Anim: {fileID: 0}
   MaxSpeed: 4
   FallSpeed: 30
+  ProjectilePool: {fileID: 5194659070681647680}
   Grounded: 0
   projectile: {fileID: 8619156979281722204, guid: 40933be9598676b469b682f14d657035,
     type: 3}
@@ -165,3 +167,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5194659070681647680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216191262933233027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 718d461aa8358a64f8c436e21247b534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 10
+  poolObject: {fileID: 8619156979281722204, guid: 40933be9598676b469b682f14d657035,
+    type: 3}

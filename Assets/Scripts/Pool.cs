@@ -28,7 +28,7 @@ public class Pool : MonoBehaviour
     {
         if (m_items.Count == 0)
         {
-            Debug.Log("Pool depleted, consider boosting its size, this can cause performance issues.");
+            Debug.LogWarning("Pool depleted, consider boosting its size, this can cause performance issues.");
             InstantiateObject();
         }
 

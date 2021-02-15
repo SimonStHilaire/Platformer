@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public Action OnEnemyCollison;
 
+    public Pool ProjectilePool;
+
     const string JUMP_KEY = "jump";
     const string LAND_KEY = "land";
 
@@ -70,11 +72,16 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject pro = Instantiate(projectile, transform.position, Quaternion.identity);
+            GameObject pro = ProjectilePool.GetObject();
+
+            pro.transform.position = transform.position;
+
             if (spriteRenderer.flipX)
                 pro.GetComponent<Projectile>().Direction = new Vector3(-1, 0, 0);
             else
                 pro.GetComponent<Projectile>().Direction = new Vector3(1, 0, 0);
+
+            pro.SetActive(true);
 
         }
 

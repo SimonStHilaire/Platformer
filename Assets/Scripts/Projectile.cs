@@ -21,6 +21,11 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer != (int)Mathf.Log(CollisionIgnoreLayer.value, 2))
-            Destroy(gameObject);
+        {
+            if (transform.parent.GetComponent<Pool>() != null)
+                transform.parent.GetComponent<Pool>().FreeObject(gameObject);
+            else
+                Destroy(gameObject);
+        }
     }
 }
