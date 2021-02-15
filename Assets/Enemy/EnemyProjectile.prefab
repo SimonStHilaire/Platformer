@@ -135,7 +135,7 @@ MonoBehaviour:
   Direction: {x: 0, y: 0, z: 0}
   CollisionIgnoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
 --- !u!50 &-4545998959548861473
 Rigidbody2D:
   serializedVersion: 4
