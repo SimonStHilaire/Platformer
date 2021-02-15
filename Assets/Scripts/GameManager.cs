@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
             Player.transform.position = PlayerSpawnPosition.position;
         }
 
+        Camera.main.GetComponent<CameraController>().Player = Player.transform;
+
         Player.OnEnemyCollison += OnPlayerTouchEnemy;
 
         Enemies = new List<EnemyController>();
