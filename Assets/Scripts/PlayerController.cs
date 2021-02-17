@@ -76,10 +76,31 @@ public class PlayerController : MonoBehaviour
 
             pro.transform.position = transform.position;
 
-            if (spriteRenderer.flipX)
-                pro.GetComponent<Projectile>().Direction = new Vector3(-1, 0, 0);
-            else
-                pro.GetComponent<Projectile>().Direction = new Vector3(1, 0, 0);
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            bool autoAim = false;
+
+            foreach(GameObject enemy in enemies)
+            {
+                Vector3 direction = enemy.transform.position - transform.position;
+
+                Debug.DrawRay(transform.position, direction, Color.red, 1f);
+
+                if (!Physics2D.Raycast(transform.position, direction, direction.magnitude, EnvLayerMask))
+                {
+                    pro.GetComponent<Projectile>().Direction = direction.normalized;
+                    autoAim = true;
+                    break;
+                }
+            }
+
+            if (!autoAim)
+            {
+                if (spriteRenderer.flipX)
+                    pro.GetComponent<Projectile>().Direction = new Vector3(-1, 0, 0);
+                else
+                    pro.GetComponent<Projectile>().Direction = new Vector3(1, 0, 0);
+            }
 
             pro.SetActive(true);
 
