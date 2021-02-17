@@ -2,24 +2,39 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
+    public List<Transform> EnemySpawnPoints;
+    public Transform PlayerSpawnPosition;
+    public string ConfigFilename;
+
+    public int MaxEnemiesCount;
+
     Config LevelConfig;
 
     // Start is called before the first frame update
     void Start()
     {
         ReadConfig();
+        //GenerateConfig();
     }
 
     void ReadConfig()
     {
-        /*string jsonConfig = File.ReadAllText("config.json");
+        if (!string.IsNullOrEmpty(ConfigFilename) && File.Exists(ConfigFilename))
+        {
+            string jsonConfig = File.ReadAllText(ConfigFilename);
 
-        LevelConfig = JsonUtility.FromJson<Config>(jsonConfig);
+            LevelConfig = JsonUtility.FromJson<Config>(jsonConfig);
 
-        Physics2D.gravity *= LevelConfig.GravityModifier;*/
+            Physics2D.gravity *= LevelConfig.GravityModifier;
+        }
+        else
+        {
+            Physics2D.gravity = new Vector2(0f, -9.8f);
+        }
     }
 
     void GenerateConfig()

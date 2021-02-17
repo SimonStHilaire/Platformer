@@ -12,11 +12,6 @@ public class GameManager : MonoBehaviour
     public PlayerController PlayerRef;
     public EnemyController EnemyRef;
 
-    public List<Transform> EnemySpawnPoints;
-    public Transform PlayerSpawnPosition;
-
-    public int MaxEnemiesCount;
-
     public int LevelCount;
 
     const string LEVEL_NAME = "Level";
@@ -29,7 +24,9 @@ public class GameManager : MonoBehaviour
     bool IsPlaying = false;
 
     int CurrentLevelIndex = 0;//0 = invalid since we are 1 based here
-    string CurrentLevel = "";
+    string CurrentLevelName = "";
+
+    Level CurrentLevel;
 
     void Start()
     {
@@ -39,14 +36,43 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         LoadNextLevel();
+    }
 
-        /*if (Player == null)
+    void LoadNextLevel(int levelIndex = -1)
+    {
+        if (CurrentLevelIndex > 0 && SceneManager.GetSceneByName(CurrentLevelName).isLoaded)
+            SceneManager.UnloadSceneAsync(CurrentLevelName);
+
+        CurrentLevelIndex++;
+
+        if(CurrentLevelIndex > LevelCount)//TODO Win the game
+            CurrentLevelIndex = 1;
+
+        CurrentLevelName = LEVEL_NAME + CurrentLevelIndex.ToString();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.LoadScene(CurrentLevelName, LoadSceneMode.Additive);
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        //CurrentLevel = (Level)FindObjectOfType(typeof(Level));
+        CurrentLevel = FindObjectOfType<Level>();
+
+        if (!CurrentLevel)
         {
-            Player = Instantiate(PlayerRef, PlayerSpawnPosition.position, Quaternion.identity, null);
+            Debug.LogError("No level found");
+        }
+
+        if (Player == null)
+        {
+            Player = Instantiate(PlayerRef, CurrentLevel.PlayerSpawnPosition.position, Quaternion.identity, null);
         }
         else
         {
-            Player.transform.position = PlayerSpawnPosition.position;
+            Player.transform.position = CurrentLevel.PlayerSpawnPosition.position;
         }
 
         Camera.main.GetComponent<CameraController>().Player = Player.transform;
@@ -58,22 +84,7 @@ public class GameManager : MonoBehaviour
         EnemySpawnTimer = Settings.EnemySpawnInterval;
 
         MainMenu.SetActive(false);
-        IsPlaying = true;*/
-    }
-
-    void LoadNextLevel(int levelIndex = -1)
-    {
-        if (CurrentLevelIndex > 0 && SceneManager.GetSceneByName(CurrentLevel).isLoaded)
-            SceneManager.UnloadSceneAsync(CurrentLevel);
-
-        CurrentLevelIndex++;
-
-        if(CurrentLevelIndex > LevelCount)//TODO Win the game
-            CurrentLevelIndex = 1;
-
-        CurrentLevel = LEVEL_NAME + CurrentLevelIndex.ToString();
-
-        SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
+        IsPlaying = true;
     }
 
     void OnPlayerTouchEnemy()
@@ -100,13 +111,13 @@ public class GameManager : MonoBehaviour
 
             if (EnemySpawnTimer <= 0)
             {
-                int spawnIndex = Random.Range(0, EnemySpawnPoints.Count);
+                int spawnIndex = Random.Range(0, CurrentLevel.EnemySpawnPoints.Count);
 
-                EnemyController newEnemy = Instantiate(EnemyRef, EnemySpawnPoints[spawnIndex].position, Quaternion.identity, transform);
+                EnemyController newEnemy = Instantiate(EnemyRef, CurrentLevel.EnemySpawnPoints[spawnIndex].position, Quaternion.identity, transform);
 
                 Enemies.Add(newEnemy);
 
-                if (Enemies.Count < MaxEnemiesCount)
+                if (Enemies.Count < CurrentLevel.MaxEnemiesCount)
                     EnemySpawnTimer = Settings.EnemySpawnInterval;
             }
         }

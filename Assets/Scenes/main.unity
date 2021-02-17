@@ -632,11 +632,6 @@ MonoBehaviour:
     type: 3}
   EnemyRef: {fileID: 5912411875778104052, guid: 32ae58aaafb21f1418cd30224e8fd7ea,
     type: 3}
-  EnemySpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  PlayerSpawnPosition: {fileID: 0}
-  MaxEnemiesCount: 0
   LevelCount: 3
 --- !u!4 &1465759156
 Transform:

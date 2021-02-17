@@ -150,6 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfdbbc28d001db74bb422e59d00c6a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemySpawnPoints:
+  - {fileID: 1236875893}
+  - {fileID: 497804824}
+  PlayerSpawnPosition: {fileID: 1685347897}
+  ConfigFilename: Level2.json
+  MaxEnemiesCount: 3
 --- !u!4 &203260793
 Transform:
   m_ObjectHideFlags: 0
