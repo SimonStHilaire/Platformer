@@ -15,11 +15,11 @@ public class Level : MonoBehaviour
 
     void ReadConfig()
     {
-        string jsonConfig = File.ReadAllText("config.json");
+        /*string jsonConfig = File.ReadAllText("config.json");
 
         LevelConfig = JsonUtility.FromJson<Config>(jsonConfig);
 
-        Physics2D.gravity *= LevelConfig.GravityModifier;
+        Physics2D.gravity *= LevelConfig.GravityModifier;*/
     }
 
     void GenerateConfig()

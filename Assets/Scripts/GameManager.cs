@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,12 +17,19 @@ public class GameManager : MonoBehaviour
 
     public int MaxEnemiesCount;
 
+    public int LevelCount;
+
+    const string LEVEL_NAME = "Level";
+
     PlayerController Player = null;
     List<EnemyController> Enemies = new List<EnemyController>();
 
     float EnemySpawnTimer;
 
     bool IsPlaying = false;
+
+    int CurrentLevelIndex = 0;//0 = invalid since we are 1 based here
+    string CurrentLevel = "";
 
     void Start()
     {
@@ -30,7 +38,9 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (Player == null)
+        LoadNextLevel();
+
+        /*if (Player == null)
         {
             Player = Instantiate(PlayerRef, PlayerSpawnPosition.position, Quaternion.identity, null);
         }
@@ -48,7 +58,22 @@ public class GameManager : MonoBehaviour
         EnemySpawnTimer = Settings.EnemySpawnInterval;
 
         MainMenu.SetActive(false);
-        IsPlaying = true;
+        IsPlaying = true;*/
+    }
+
+    void LoadNextLevel(int levelIndex = -1)
+    {
+        if (CurrentLevelIndex > 0 && SceneManager.GetSceneByName(CurrentLevel).isLoaded)
+            SceneManager.UnloadSceneAsync(CurrentLevel);
+
+        CurrentLevelIndex++;
+
+        if(CurrentLevelIndex > LevelCount)//TODO Win the game
+            CurrentLevelIndex = 1;
+
+        CurrentLevel = LEVEL_NAME + CurrentLevelIndex.ToString();
+
+        SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
     }
 
     void OnPlayerTouchEnemy()
