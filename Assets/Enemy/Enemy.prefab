@@ -58,6 +58,8 @@ MonoBehaviour:
   MaxSpeed: 2
   FallSpeed: 15
   ShootInterval: 0
+  DeathExplosionRef: {fileID: 5371956191185957627, guid: ecedc4ff87c73394f974a9534c8971f7,
+    type: 3}
   Grounded: 0
 --- !u!212 &5912411875778104008
 SpriteRenderer:

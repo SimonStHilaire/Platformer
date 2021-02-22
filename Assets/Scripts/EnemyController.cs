@@ -19,6 +19,8 @@ public class EnemyController : MonoBehaviour
     public float FallSpeed;
     public float ShootInterval;
 
+    public ParticleSystem DeathExplosionRef;
+
     private Rigidbody2D Body;
     private CapsuleCollider2D Coll2D;
 
@@ -108,6 +110,9 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == (int)Mathf.Log(PlayerProjectileLayerMask.value, 2))
+        {
+            Instantiate(DeathExplosionRef, transform.position, Quaternion.identity);
             Destroy(gameObject);
+        }
     }
 }
