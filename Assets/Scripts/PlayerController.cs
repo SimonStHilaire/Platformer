@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Gameplay")]
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D Coll2D;
     public float MaxSpeed;
     public float FallSpeed;
+
+    public AudioSource MyAudioSource;
 
     public Action OnEnemyCollison;
 
@@ -45,13 +48,16 @@ public class PlayerController : MonoBehaviour
         Coll2D = GetComponent<CapsuleCollider2D>();
         Anim = GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        MyAudioSource = GetComponent<AudioSource>();
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<EnemyController>())
+        {
             OnEnemyCollison?.Invoke();
+        }
     }
 
     void Update()
@@ -72,6 +78,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
+            SoundController.Instance.playAudio("Shoot", MyAudioSource);
+
             GameObject pro = ProjectilePool.GetObject();
 
             pro.transform.position = transform.position;
@@ -111,6 +119,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && Grounded)
         {
+            SoundController.Instance.playAudio("Jump", MyAudioSource);
             Body.AddForce(new Vector2(0, jumpForce));
             Anim.SetTrigger(JUMP_KEY);
             Jumping = true;

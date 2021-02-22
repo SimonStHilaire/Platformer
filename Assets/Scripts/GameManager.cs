@@ -98,6 +98,8 @@ public class GameManager : SceneSingleton<GameManager>
         }
 
         Destroy(Player.gameObject);
+
+        SoundController.Instance.playAudio("Death", GetComponent<AudioSource>());
     }
 
     void Update()

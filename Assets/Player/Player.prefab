@@ -58,6 +58,7 @@ MonoBehaviour:
   Anim: {fileID: 0}
   MaxSpeed: 4
   FallSpeed: 30
+  MyAudioSource: {fileID: 0}
   ProjectilePool: {fileID: 5194659070681647680}
   Grounded: 0
   projectile: {fileID: 8619156979281722204, guid: 40933be9598676b469b682f14d657035,
@@ -194,7 +195,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
