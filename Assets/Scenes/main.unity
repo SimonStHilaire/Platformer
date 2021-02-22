@@ -661,9 +661,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad14642b842841e88e73a4a5d7db67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Jump: {fileID: 8300000, guid: a0dd066c281cb0044be674c1e0cc9abe, type: 3}
-  Shoot: {fileID: 8300000, guid: 279fd4fac70a73f4fbba8cbf6d08f3d8, type: 3}
-  Death: {fileID: 8300000, guid: 2f7fd4249e07e4c4e87f2dbd652894bc, type: 3}
+  Clips:
+  - {fileID: 8300000, guid: 279fd4fac70a73f4fbba8cbf6d08f3d8, type: 3}
+  - {fileID: 8300000, guid: a0dd066c281cb0044be674c1e0cc9abe, type: 3}
+  - {fileID: 8300000, guid: 2f7fd4249e07e4c4e87f2dbd652894bc, type: 3}
 --- !u!82 &1465759158
 AudioSource:
   m_ObjectHideFlags: 0

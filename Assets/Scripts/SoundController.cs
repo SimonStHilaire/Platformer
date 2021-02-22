@@ -4,29 +4,35 @@ using UnityEngine;
 
 public class SoundController : SceneSingleton<SoundController>
 {
+    Dictionary<string, AudioClip> Sounds = new Dictionary<string, AudioClip>();
 
-    public AudioClip Jump;
-    public AudioClip Shoot;
-    public AudioClip Death;
+    public List<AudioClip> Clips;
+
+    private void Start()
+    {
+        foreach(AudioClip clip in Clips)
+        {
+            Sounds[clip.name] = clip;
+        }
+    }
 
     private AudioClip getAudio(string name)
     {
-        switch (name)
-        {
-            case "Jump":
-                return Jump;
-            case "Shoot":
-                return Shoot;
-            case "Death":
-                return Death;
-        }
+        if(Sounds.ContainsKey(name))
+            return Sounds[name];
+
         return null;
     }
 
     public void playAudio(string audioName, AudioSource audioSource)
     {
-        audioSource.clip = getAudio(audioName);
-        audioSource.Play();
+        AudioClip clip = getAudio(audioName);
+
+        if (clip)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
 
 }
