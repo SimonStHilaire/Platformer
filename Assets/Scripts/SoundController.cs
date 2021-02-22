@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundController : MonoBehaviour
+public class SoundController : SceneSingleton<SoundController>
 {
 
     public AudioClip Jump;
