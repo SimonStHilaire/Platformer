@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   PlayerProjectilesSpeed: 5
-  EnemySpawnInterval: 5
+  EnemySpawnInterval: 3
   DebugDraw: 0

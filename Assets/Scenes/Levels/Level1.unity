@@ -154,6 +154,7 @@ MonoBehaviour:
   - {fileID: 1236875893}
   - {fileID: 497804824}
   PlayerSpawnPosition: {fileID: 1655088001}
+  ConfigFilename: level1.json
   MaxEnemiesCount: 3
 --- !u!4 &203260793
 Transform:

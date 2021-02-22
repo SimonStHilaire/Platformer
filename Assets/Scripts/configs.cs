@@ -15,6 +15,7 @@ public class Config
 {
     public float GravityModifier;
     public float EnemyRespawnInterval;
+    public int MaxEnemiesCount;
 
     public List<EnemyConfig> Enemies;
 }

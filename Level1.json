@@ -1,6 +1,6 @@
 {
-  "GravityModifier": 0.5,
-  "EnemyRespawnInterval": 1.0,
+  "GravityModifier": 1.0,
+  "EnemyRespawnInterval": 2.0,
   "Enemies": [
     {
       "SpawnPosition": {
