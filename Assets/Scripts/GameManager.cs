@@ -66,6 +66,12 @@ public class GameManager : SceneSingleton<GameManager>
             Debug.LogError("No level found");
         }
 
+        //Remove remaining ennemies
+        for (int i = 0; i < Enemies.Count; ++i)
+        {
+            Destroy(Enemies[i].gameObject);
+        }
+
         if (Player == null)
         {
             Player = Instantiate(PlayerRef, CurrentLevel.PlayerSpawnPosition.position, Quaternion.identity, null);
@@ -91,11 +97,6 @@ public class GameManager : SceneSingleton<GameManager>
     {
         IsPlaying = false;
         MainMenu.SetActive(true);
-
-        for (int i = 0; i < Enemies.Count; ++i)
-        {
-            Destroy(Enemies[i].gameObject);
-        }
 
         Destroy(Player.gameObject);
 
