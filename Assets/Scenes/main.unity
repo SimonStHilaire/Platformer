@@ -634,7 +634,9 @@ MonoBehaviour:
     type: 3}
   EnemyRef: {fileID: 5912411875778104052, guid: 32ae58aaafb21f1418cd30224e8fd7ea,
     type: 3}
+  SFXMixer: {fileID: 24300002, guid: 7eb2abbc51736544eb744a5bf4e61a93, type: 2}
   LevelCount: 3
+  SoundOn: 0
 --- !u!4 &1465759156
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class GameManager : SceneSingleton<GameManager>
@@ -11,10 +12,13 @@ public class GameManager : SceneSingleton<GameManager>
 
     public PlayerController PlayerRef;
     public EnemyController EnemyRef;
+    public AudioMixerGroup SFXMixer;
 
     public int LevelCount;
 
     const string LEVEL_NAME = "Level";
+
+    public bool SoundOn;
 
     PlayerController Player = null;
     List<EnemyController> Enemies = new List<EnemyController>();
@@ -31,6 +35,20 @@ public class GameManager : SceneSingleton<GameManager>
     void Start()
     {
         MainMenu.SetActive(true);
+
+        UpdateVolume();
+    }
+
+    void UpdateVolume()
+    {
+        if (SoundOn)
+        {
+            SFXMixer.audioMixer.SetFloat("Volume", 0f);
+        }
+        else
+        {
+            SFXMixer.audioMixer.SetFloat("Volume", -80f);
+        }
     }
 
     public void StartGame()
@@ -120,9 +138,16 @@ public class GameManager : SceneSingleton<GameManager>
 
                 Enemies.Add(newEnemy);
 
-                if (Enemies.Count < CurrentLevel.MaxEnemiesCount)
+                if (Enemies.Count < CurrentLevel.MaxEnemiesCount || CurrentLevel.MaxEnemiesCount == 0)
                     EnemySpawnTimer = Settings.EnemySpawnInterval;
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SoundOn = !SoundOn;
+            UpdateVolume();
+        }
+        
     }
 }
