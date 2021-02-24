@@ -28,7 +28,6 @@ public class GameManager : SceneSingleton<GameManager>
     bool IsPlaying = false;
 
     int CurrentLevelIndex = 0;//0 = invalid since we are 1 based here
-    string CurrentLevelName = "";
 
     Level CurrentLevel;
 
@@ -58,23 +57,18 @@ public class GameManager : SceneSingleton<GameManager>
 
     void LoadNextLevel(int levelIndex = -1)
     {
-        if (CurrentLevelIndex > 0 && SceneManager.GetSceneByName(CurrentLevelName).isLoaded)
-            SceneManager.UnloadSceneAsync(CurrentLevelName);
-
         CurrentLevelIndex++;
 
         if(CurrentLevelIndex > LevelCount)//TODO Win the game
             CurrentLevelIndex = 1;
 
-        CurrentLevelName = LEVEL_NAME + CurrentLevelIndex.ToString();
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene(CurrentLevelName, LoadSceneMode.Additive);
+        TransitionManager.Instance.OnLevelLoaded += OnSceneLoaded;
+        TransitionManager.Instance.LoadLevel(LEVEL_NAME + CurrentLevelIndex.ToString());
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnSceneLoaded()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        TransitionManager.Instance.OnLevelLoaded -= OnSceneLoaded;
 
         //CurrentLevel = (Level)FindObjectOfType(typeof(Level));
         CurrentLevel = FindObjectOfType<Level>();
