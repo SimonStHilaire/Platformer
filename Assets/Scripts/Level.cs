@@ -12,7 +12,7 @@ public class Level : MonoBehaviour
 
     Config LevelConfig;
 
-    public int MaxEnemiesCount { get { return LevelConfig.MaxEnemiesCount; } }
+    public int MaxEnemiesCount { get { return LevelConfig != null ? LevelConfig.MaxEnemiesCount : 0; } }
 
     // Start is called before the first frame update
     void Start()
