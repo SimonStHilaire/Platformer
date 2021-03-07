@@ -112,7 +112,14 @@ public class GameManager : SceneSingleton<GameManager>
 
         Destroy(Player.gameObject);
 
+        CurrentLevelIndex -= 1;
+
         SoundController.Instance.playAudio("Death", GetComponent<AudioSource>());
+    }
+
+    public void OnGameExitTouched()
+    {
+        LoadNextLevel();
     }
 
     void Update()

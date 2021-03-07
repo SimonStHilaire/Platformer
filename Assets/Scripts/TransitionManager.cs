@@ -29,9 +29,13 @@ public class TransitionManager : SceneSingleton<TransitionManager>
     {
         if (scene.name != LOADING_SCENE_NAME)//Do not handle loading scene
         {
+            
+
             SceneManager.sceneLoaded -= OnSceneLoaded;
 
             SceneManager.UnloadSceneAsync(LOADING_SCENE_NAME);
+
+            SceneManager.SetActiveScene(scene);
             OnLevelLoaded?.Invoke();
         }
     }
