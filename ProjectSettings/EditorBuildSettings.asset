@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level2.unity
     guid: 6d2be124a807741759d6029cc657de53
   - enabled: 1
-    path: Assets/Scenes/Levels/Level3.unity
-    guid: 8261655ef50134789a176eaf44f2bc56
+    path: Assets/Scenes/Levels/DynamicLevel.unity
+    guid: 3abba99ea4200a443ba3ace6ce453a49
   - enabled: 1
     path: Assets/Scenes/loading.unity
     guid: 0c62cc73b5b9e4a41818fb9f98b282a7

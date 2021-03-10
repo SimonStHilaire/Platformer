@@ -16,6 +16,7 @@ public class GameManager : SceneSingleton<GameManager>
 
     const string LEVEL_NAME = "Level";
     const string MAINMENU_LEVEL_NAME = "mainmenu";
+    const string DYNAMIC_LEVEL_NAME = "DynamicLevel";
 
     public bool SoundOn;
 
@@ -55,18 +56,33 @@ public class GameManager : SceneSingleton<GameManager>
     {
         CurrentLevelIndex++;
 
-        if(CurrentLevelIndex > LevelCount)//TODO Win the game
-            CurrentLevelIndex = 1;
+        string nextSceneName = LEVEL_NAME + CurrentLevelIndex.ToString();
+
+        if (CurrentLevelIndex > LevelCount)//TODO Win the game
+        {
+            if (AssetBundleManager.Instance.Exists(LEVEL_NAME + CurrentLevelIndex.ToString()))
+            {
+                nextSceneName = DYNAMIC_LEVEL_NAME;
+            }
+            else
+            {
+                CurrentLevelIndex = 1;
+            }
+        }
 
         TransitionManager.Instance.OnLevelLoaded += OnSceneLoaded;
-        TransitionManager.Instance.LoadLevel(LEVEL_NAME + CurrentLevelIndex.ToString());
+        TransitionManager.Instance.LoadLevel(nextSceneName);
     }
 
-    void OnSceneLoaded()
+    void OnSceneLoaded(string sceneName)
     {
         TransitionManager.Instance.OnLevelLoaded -= OnSceneLoaded;
 
-        //CurrentLevel = (Level)FindObjectOfType(typeof(Level));
+        if(sceneName == DYNAMIC_LEVEL_NAME)
+        {
+            AssetBundleManager.Instance.LoadDynamicScene(LEVEL_NAME + CurrentLevelIndex.ToString());
+        }
+       
         CurrentLevel = FindObjectOfType<Level>();
 
         if (!CurrentLevel)
