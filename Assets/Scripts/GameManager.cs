@@ -30,6 +30,8 @@ public class GameManager : SceneSingleton<GameManager>
 
     void Start()
     {
+        AssetBundleManager.Instance.Download();
+
         TransitionManager.Instance.LoadLevel(MAINMENU_LEVEL_NAME);
 
         UpdateVolume();

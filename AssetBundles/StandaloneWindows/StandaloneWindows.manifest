@@ -1,7 +1,10 @@
 ManifestFileVersion: 0
-CRC: 2995173331
+CRC: 710571653
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: level3
+      Dependencies: {}
+    Info_1:
+      Name: level4
       Dependencies: {}
