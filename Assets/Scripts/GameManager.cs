@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : SceneSingleton<GameManager>
 {
     public GameSettings Settings;
-    [Header("UI")]
-    public GameObject MainMenu;
 
     public PlayerController PlayerRef;
     public EnemyController EnemyRef;
@@ -17,6 +15,7 @@ public class GameManager : SceneSingleton<GameManager>
     public int LevelCount;
 
     const string LEVEL_NAME = "Level";
+    const string MAINMENU_LEVEL_NAME = "mainmenu";
 
     public bool SoundOn;
 
@@ -33,7 +32,7 @@ public class GameManager : SceneSingleton<GameManager>
 
     void Start()
     {
-        MainMenu.SetActive(true);
+        TransitionManager.Instance.LoadLevel(MAINMENU_LEVEL_NAME);
 
         UpdateVolume();
     }
@@ -93,7 +92,10 @@ public class GameManager : SceneSingleton<GameManager>
             Player.transform.position = CurrentLevel.PlayerSpawnPosition.position;
         }
 
-        Camera.main.GetComponent<CameraController>().Player = Player.transform;
+        CameraController cameraController = Camera.main.GetComponent<CameraController>();
+
+        if(cameraController)
+            cameraController.Player = Player.transform;
 
         Player.OnEnemyCollison += OnPlayerTouchEnemy;
 
@@ -101,14 +103,12 @@ public class GameManager : SceneSingleton<GameManager>
 
         EnemySpawnTimer = Settings.EnemySpawnInterval;
 
-        MainMenu.SetActive(false);
         IsPlaying = true;
     }
 
     void OnPlayerTouchEnemy()
     {
         IsPlaying = false;
-        MainMenu.SetActive(true);
 
         Destroy(Player.gameObject);
 
