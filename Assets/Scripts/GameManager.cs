@@ -20,9 +20,6 @@ public class GameManager : SceneSingleton<GameManager>
     public bool SoundOn;
 
     PlayerController Player = null;
-    List<EnemyController> Enemies = new List<EnemyController>();
-
-    float EnemySpawnTimer;
 
     bool IsPlaying = false;
 
@@ -77,12 +74,6 @@ public class GameManager : SceneSingleton<GameManager>
             Debug.LogError("No level found");
         }
 
-        //Remove remaining ennemies
-        for (int i = 0; i < Enemies.Count; ++i)
-        {
-            Destroy(Enemies[i].gameObject);
-        }
-
         if (Player == null)
         {
             Player = Instantiate(PlayerRef, CurrentLevel.PlayerSpawnPosition.position, Quaternion.identity, null);
@@ -98,10 +89,6 @@ public class GameManager : SceneSingleton<GameManager>
             cameraController.Player = Player.transform;
 
         Player.OnEnemyCollison += OnPlayerTouchEnemy;
-
-        Enemies = new List<EnemyController>();
-
-        EnemySpawnTimer = Settings.EnemySpawnInterval;
 
         IsPlaying = true;
     }
@@ -126,23 +113,6 @@ public class GameManager : SceneSingleton<GameManager>
     {
         if (!IsPlaying)
             return;
-
-        if(EnemySpawnTimer > 0)
-        {
-            EnemySpawnTimer -= Time.deltaTime;
-
-            if (EnemySpawnTimer <= 0)
-            {
-                int spawnIndex = Random.Range(0, CurrentLevel.EnemySpawnPoints.Count);
-
-                EnemyController newEnemy = Instantiate(EnemyRef, CurrentLevel.EnemySpawnPoints[spawnIndex].position, Quaternion.identity, transform);
-
-                Enemies.Add(newEnemy);
-
-                if (Enemies.Count < CurrentLevel.MaxEnemiesCount || CurrentLevel.MaxEnemiesCount == 0)
-                    EnemySpawnTimer = Settings.EnemySpawnInterval;
-            }
-        }
 
         if(Input.GetKeyDown(KeyCode.P))
         {
