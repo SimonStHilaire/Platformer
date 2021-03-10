@@ -102,6 +102,8 @@ public class GameManager : SceneSingleton<GameManager>
         CurrentLevelIndex -= 1;
 
         SoundController.Instance.playAudio("Death", GetComponent<AudioSource>());
+
+        LoadNextLevel();
     }
 
     public void OnGameExitTouched()
