@@ -119,6 +119,11 @@ public class GameManager : SceneSingleton<GameManager>
             SoundOn = !SoundOn;
             UpdateVolume();
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            LoadNextLevel();
+        }
+
     }
 }
