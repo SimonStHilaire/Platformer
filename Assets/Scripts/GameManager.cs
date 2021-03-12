@@ -69,6 +69,7 @@ public class GameManager : SceneSingleton<GameManager>
             else
             {
                 CurrentLevelIndex = 1;
+                nextSceneName = LEVEL_NAME + CurrentLevelIndex.ToString();
             }
         }
 
