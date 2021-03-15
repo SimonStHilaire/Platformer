@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -23,6 +24,9 @@ public class AssetBundleManager : SceneSingleton<AssetBundleManager>
         public List<Bundle> bundles = new List<Bundle>();
     }
 
+    BundleManifest LocalManifest = null;
+
+    const string LOCAL_MANIFEST_FILENAME = "localmanifest.json";
     const string MANIFEST_FILENAME = "manifest.json";
 
     Dictionary<string, AssetBundle> LoadedBundles = new Dictionary<string, AssetBundle>();
@@ -55,17 +59,21 @@ public class AssetBundleManager : SceneSingleton<AssetBundleManager>
         }
     }
 
-    public void Download()
+    public void Initialize()
     {
+        string manifestFilePath = GetLocalManifestFilePath();
+
+        if (File.Exists(manifestFilePath))
+        {
+            LocalManifest = JsonUtility.FromJson<BundleManifest>(File.ReadAllText(manifestFilePath));
+        }
+
         StartCoroutine(DownloadFile(MANIFEST_FILENAME, DownloadLevels));
     }
 
     public void DownloadLevels()
     {
-        string filePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + MANIFEST_FILENAME;
-
-        if (LocalBundles)
-            filePath = Application.streamingAssetsPath + Path.AltDirectorySeparatorChar + MANIFEST_FILENAME;
+        string filePath = GetManifestFilePath();
 
         if (File.Exists(filePath))
         {
@@ -73,9 +81,32 @@ public class AssetBundleManager : SceneSingleton<AssetBundleManager>
 
             foreach(Bundle bundle in manifest.bundles)
             {
-                StartCoroutine(DownloadFile(bundle.name));
+                Bundle localBundle = LocalManifest != null ? LocalManifest.bundles.Where(i => i.name == bundle.name).First() : null;
+
+                if(localBundle == null || bundle.version > localBundle.version)
+                {
+                    StartCoroutine(DownloadFile(bundle.name));
+                }
             }
+
+            File.Copy(filePath, GetLocalManifestFilePath(), true);
+
+            if(!LocalBundles)
+                File.Delete(GetManifestFilePath());
         }
+    }
+
+    string GetLocalManifestFilePath()
+    {
+        return Application.persistentDataPath + Path.AltDirectorySeparatorChar + LOCAL_MANIFEST_FILENAME;
+    }
+
+    string GetManifestFilePath()
+    {
+        if (LocalBundles)
+            return Application.streamingAssetsPath + Path.AltDirectorySeparatorChar + MANIFEST_FILENAME;
+
+        return Application.persistentDataPath + Path.AltDirectorySeparatorChar + MANIFEST_FILENAME;
     }
 
     IEnumerator DownloadFile(string name, Action callback = null)
