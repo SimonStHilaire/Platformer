@@ -13,9 +13,7 @@ public class SceneSingleton<T> : MonoBehaviour where T : SceneSingleton<T>
                     m_Instance = new GameObject(typeof(T).Name).AddComponent<T>();
                 }
 
-#if !UNITY_EDITOR
                 DontDestroyOnLoad(m_Instance.gameObject);
-#endif
             }
             return m_Instance;
         }
