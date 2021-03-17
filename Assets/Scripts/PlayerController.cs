@@ -60,6 +60,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "power")
+        {
+            moveSpeed *= 2;
+            MaxSpeed *= 2;
+            Destroy(collision.gameObject);
+        }
+    }
+
     void Update()
     {
 
