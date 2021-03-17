@@ -1,0 +1,17 @@
+{
+  "metiers":
+  [
+    {
+      "nomMetier": "Developpeur",
+      "noms": [
+        "Phillippe"
+      ]
+    },
+    {
+      "nomMetier": "Professeur",
+      "noms": [
+        "Phillippe"
+      ]
+    }
+  ]
+}

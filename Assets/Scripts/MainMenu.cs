@@ -8,4 +8,9 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.Instance.StartGame();
     }
+
+    public void StarCredits()
+    {
+        GameManager.Instance.StartCredits();
+    }
 }

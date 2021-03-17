@@ -54,6 +54,11 @@ public class GameManager : SceneSingleton<GameManager>
         LoadNextLevel();
     }
 
+    public void StartCredits()
+    {
+        SceneManager.LoadScene("credits", LoadSceneMode.Additive);
+    }
+
     void LoadNextLevel(int levelIndex = -1)
     {
         CurrentLevelIndex++;
