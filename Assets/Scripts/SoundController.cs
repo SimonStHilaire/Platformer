@@ -6,11 +6,11 @@ public class SoundController : SceneSingleton<SoundController>
 {
     Dictionary<string, AudioClip> Sounds = new Dictionary<string, AudioClip>();
 
-    public List<AudioClip> Clips;
+    SoundSettings Settings;
 
     private void Start()
     {
-        foreach(AudioClip clip in Clips)
+        foreach(AudioClip clip in Settings.Clips)
         {
             Sounds[clip.name] = clip;
         }
